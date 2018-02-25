@@ -42,7 +42,7 @@ def linear_loss_naive(W, X, y, reg):
         for j in range(N):
             dW[i] += X[j][i] * (y_pred[j] - y[j]) / N
 
-        dW[i] -= W[i] - reg * W[i]
+        dW[i] += reg * W[i] 
 
     # print(dW)
 
@@ -69,7 +69,9 @@ def linear_loss_vectorized(W, X, y, reg):
     # here, it is easy to run into numeric instability. Don't forget the        #
     # regularization!                                                           #
     #############################################################################
-    pass
+    N, D = X.shape
+    loss = 0.5 * np.mean((np.dot(X, W) - y) ** 2)
+    dW = np.dot(X.transpose(), (np.dot(X, W) - y)) / N + reg*W
     #############################################################################
     #                          END OF YOUR CODE                                 #
     #############################################################################
